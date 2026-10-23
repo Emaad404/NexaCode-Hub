@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Premium SEO & Open Graph Metadata -->
+    <title>NexaCode Hub | Elite Programming Academy for Next-Gen Engineers</title>
+    <meta name="description" content="NexaCode Hub is a premium, hands-on programming academy designed for elite developers. Solve code challenges, build real production software, and scale your career.">
+    <link rel="canonical" href="https://nexacodehub.com">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nexacodehub.com">
+    <meta property="og:title" content="NexaCode Hub | Elite Programming Academy">
+    <meta property="og:description" content="Build skills. Build projects. Build your future. Interactive terminal, live coding playground, and 1-on-1 code reviews.">
+    <meta property="og:image" content="https://nexacodehub.com/assets/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://nexacodehub.com">
+    <meta property="twitter:title" content="NexaCode Hub | Elite Programming Academy">
+    <meta property="twitter:description" content="Build skills. Build projects. Build your future. Interactive terminal, live coding playground, and 1-on-1 code reviews.">
+    <meta property="twitter:image" content="https://nexacodehub.com/assets/og-image.jpg">
+
+    <!-- Preload Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets & Manifest -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+
+    <!-- JSON-LD Structured Data for Educational Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "NexaCode Hub",
+      "url": "https://nexacodehub.com",
+      "logo": "https://nexacodehub.com/assets/logo.png",
+      "description": "NexaCode Hub is a premium programming academy focusing on hands-on software development, personalized code reviews, and industry readiness.",
+      "sameAs": [
+        "https://github.com/nexacodehub",
+        "https://twitter.com/nexacodehub"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "category": "Education",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+</head>
+<body class="dark-mode">
+
+    <!-- Custom Glowing Cursor -->
+    <div class="custom-cursor-dot" id="cursorDot"></div>
+    <div class="custom-cursor-circle" id="cursorCircle"></div>
+
+    <!-- Terminal Loader (Full Screen) -->
+    <div class="terminal-loader" id="terminalLoader">
+        <div class="terminal-loader-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="title">NexaCode System Boot</span>
+        </div>
+        <div class="terminal-loader-body" id="loaderOutput">
+            <!-- Programmatically populated by app.js -->
+        </div>
+    </div>
+
+    <!-- Background Canvas and Grid Overlay -->
+    <div class="background-wrapper">
+        <canvas id="constellationCanvas"></canvas>
+        <div class="grid-overlay"></div>
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <!-- Floating Command Palette Dialog -->
+    <div class="command-palette-backdrop" id="commandPalette">
+        <div class="command-palette-container">
+            <div class="command-palette-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="commandInput" placeholder="Type a command or search..." autocomplete="off">
+                <span class="esc-badge">ESC</span>
+            </div>
+            <div class="command-palette-body" id="commandResults">
+                <!-- Search items populated dynamically -->
+            </div>
+            <div class="command-palette-footer">
+                <span>Use <kbd>↑</kbd><kbd>↓</kbd> to navigate, <kbd>Enter</kbd> to select</span>
+                <span>Press <kbd>Ctrl</kbd>+<kbd>K</kbd> anywhere to open</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="floating-header">
+        <div class="header-container">
+            <a href="#" class="logo hoverable">
+                <span class="logo-accent">&lt;</span>NexaCode Hub<span class="logo-accent"> /&gt;</span>
+            </a>
+            <nav class="main-nav">
+                <a href="#playground" class="nav-link hoverable">Sandbox</a>
+                <a href="#dashboard" class="nav-link hoverable">Dashboard</a>
+                <a href="#journey" class="nav-link hoverable">Journey</a>
+                <a href="#programs" class="nav-link hoverable">Programs</a>
+                <a href="#reviews" class="nav-link hoverable">Reviews</a>
+                <a href="#community" class="nav-link hoverable">Community</a>
+                <a href="#story" class="nav-link hoverable">Story</a>
+                <a href="#faq" class="nav-link hoverable">FAQ</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-palette hoverable" id="paletteTrigger" aria-label="Open Command Palette">
+                    <kbd>Ctrl K</kbd>
+                </button>
+                <a href="#apply" class="btn btn-primary hoverable">Apply Now</a>
+            </div>
+            <button class="mobile-menu-toggle hoverable" id="menuToggle" aria-label="Toggle Navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNav">
+        <nav class="mobile-nav-links">
+            <a href="#playground" class="mobile-link">Sandbox</a>
+            <a href="#dashboard" class="mobile-link">Dashboard</a>
+            <a href="#journey" class="mobile-link">Journey</a>
+            <a href="#programs" class="mobile-link">Programs</a>
+            <a href="#reviews" class="mobile-link">Reviews</a>
+            <a href="#community" class="mobile-link">Community</a>
+            <a href="#story" class="mobile-link">Story</a>
+            <a href="#faq" class="mobile-link">FAQ</a>
+            <a href="#apply" class="mobile-link btn btn-primary">Apply Now</a>
+        </nav>
+    </div>
+
+    <main class="main-content">
+
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="container hero-container">
+                <div class="hero-left reveal">
+                    <div class="tagline-badge">
+                        <span class="dot glow"></span>
+                        <span class="badge-text">Next cohort starts July 2026</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Build Skills.<br>
+                        Build Projects.<br>
+                        <span class="gradient-text">Build Your Future.</span>
+                    </h1>
+                    <p class="hero-description">
+                        NexaCode Hub is a premium hands-on programming academy. No boring lectures, no generic slides. Build complex production apps with daily 1-on-1 code reviews from senior engineers and join an elite engineering cohort.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#apply" class="btn btn-primary btn-magnetic hoverable">Apply Now</a>
+                        <a href="#programs" class="btn btn-secondary btn-magnetic hoverable">Explore Programs</a>
+                    </div>
+                </div>
+                <div class="hero-right reveal">
+                    <!-- Interactive Floating Code Editor Mockup -->
+                    <div class="floating-editor-container card-tilt">
+                        <div class="editor-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">accelerator.js</span>
+                            <span class="editor-status">LIVE</span>
+                        </div>
+                        <div class="editor-body">
+                            <pre><code class="language-js" id="codeEditorContent"></code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Floating Git Deployment notifications overlay -->
+                    <div class="floating-notifs">
+                        <div class="notif-card git-commit reveal-delayed">
+                            <div class="notif-icon git">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="18" cy="18" r="3"></circle>
+                                    <circle cx="6" cy="6" r="3"></circle>
+                                    <circle cx="6" cy="18" r="3"></circle>
+                                    <path d="M18 15V9a4 4 0 0 0-4-4H9"></path>
+                                    <line x1="6" y1="9" x2="6" y2="15"></line>
+                                </svg>
+                            </div>
+                            <div class="notif-content">
+                                <span class="notif-title">PR Approved & Merged</span>
+                                <span class="notif-desc">main by dev_sarah (#420)</span>
+                            </div>
+                        </div>
+                        <div class="notif-card deployment reveal-delayed-more">
+                            <div class="notif-icon deploy">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                            </div>
+                            <div class="notif-content">
+                                <span class="notif-title">Production Deployed</span>
+                                <span class="notif-desc">nexacode-dashboard.vercel.app</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Coding Playground Section -->
+        <section class="playground-section" id="playground">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">TEST YOUR SKILLS</span>
+                    <h2 class="section-title">The Nexa Sandbox</h2>
+                    <p class="section-subtitle">
+                        Solve our entry-level sandbox coding challenge. Run tests against your solution live. Correct solutions bypass the initial screening stage.
+                    </p>
+                </div>
+
+                <div class="playground-grid reveal">
+                    <div class="playground-instructions">
+                        <div class="problem-card">
+                            <h3>Challenge: Find Peak Element</h3>
+                            <p>Write a function <code>findPeak(arr)</code> that takes an array of numbers and returns the index of a "peak" element. An element is a peak if it is greater than or equal to its neighbors.</p>
+                            <p>For elements on the edges, they only need to be greater than or equal to their single neighbor.</p>
+                            <div class="example-case">
+                                <strong>Example 1:</strong>
+                                <pre><code>findPeak([1, 2, 3, 1]) => 2 // Value 3 is peak</code></pre>
+                            </div>
+                            <div class="example-case">
+                                <strong>Example 2:</strong>
+                                <pre><code>findPeak([1, 2, 1, 3, 5, 6, 4]) => 5 // Value 6 is peak</code></pre>
+                            </div>
+                            <div class="challenge-status" id="challengeStatus">
+                                <span class="status-indicator"></span>
+                                <span class="status-text">Awaiting solution...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="playground-editor card-tilt">
+                        <div class="editor-header">
+                            <span class="filename">sandbox_solution.js</span>
+                            <button class="btn btn-sm btn-secondary hoverable" id="resetChallenge">Reset</button>
+                        </div>
+                        <div class="editor-input-area">
+                            <textarea id="playgroundCode" spellcheck="false" autocomplete="off"></textarea>
+                        </div>
+                        <div class="editor-footer">
+                            <button class="btn btn-primary hoverable" id="runTestBtn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Run Sandbox Tests
+                            </button>
+                        </div>
+                        <div class="compiler-console" id="consoleOutput">
+                            <div class="console-line system">// Console ready. Press "Run Sandbox Tests" to compile.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Dashboard Preview Section -->
+        <section class="dashboard-preview-section" id="dashboard">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">THE ENVIRONMENT</span>
+                    <h2 class="section-title">Your Developer Dashboard</h2>
+                    <p class="section-subtitle">
+                        Visualize your growth. Track your stats, watch your streak grow, receive mentor notes, and manage your portfolio projects on our unified learning portal.
+                    </p>
+                </div>
+
+                <div class="dashboard-grid reveal">
+                    <!-- Dashboard Sidebar -->
+                    <div class="dash-sidebar card-tilt">
+                        <div class="sidebar-user">
+                            <div class="user-avatar-glow">
+                                <div class="user-avatar">JD</div>
+                            </div>
+                            <div class="user-info">
+                                <h4 class="user-name">John Doe</h4>
+                                <span class="user-role">Fullstack Cadet</span>
+                            </div>
+                        </div>
+                        <nav class="sidebar-menu">
+                            <a href="#dashboard" class="menu-item active">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                Workspace
+                            </a>
+                            <a href="#journey" class="menu-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                Roadmaps
+                            </a>
+                            <a href="#reviews" class="menu-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                Code Reviews
+                            </a>
+                        </nav>
+                    </div>
+
+                    <!-- Dashboard Main Panel -->
+                    <div class="dash-main card-tilt">
+                        <div class="dash-stats-row">
+                            <div class="stat-widget">
+                                <span class="widget-label">CODING STREAK</span>
+                                <div class="widget-value-row">
+                                    <span class="widget-value" id="streakVal">24</span>
+                                    <span class="widget-unit">days</span>
+                                </div>
+                                <div class="streak-dots">
+                                    <span class="s-dot active"></span>
+                                    <span class="s-dot active"></span>
+                                    <span class="s-dot active"></span>
+                                    <span class="s-dot active"></span>
+                                    <span class="s-dot active"></span>
+                                    <span class="s-dot active"></span>
+                                    <span class="s-dot active"></span>
+                                </div>
+                            </div>
+                            <div class="stat-widget">
+                                <span class="widget-label">PROGRAM PROGRESS</span>
+                                <div class="widget-value-row">
+                                    <span class="widget-value">68</span>
+                                    <span class="widget-unit">%</span>
+                                </div>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-fill" style="width: 68%;"></div>
+                                </div>
+                            </div>
+                            <div class="stat-widget">
+                                <span class="widget-label">PORTFOLIO PROJECTS</span>
+                                <div class="widget-value-row">
+                                    <span class="widget-value">4</span>
+                                    <span class="widget-unit">/ 6 Done</span>
+                                </div>
+                                <span class="widget-sub">Next: SaaS Dashboard</span>
+                            </div>
+                        </div>
+
+                        <div class="dash-details-row">
+                            <!-- Tasks Card -->
+                            <div class="dash-sub-card">
+                                <h4 class="card-title">Current Tasks</h4>
+                                <ul class="dash-task-list">
+                                    <li class="task-item completed">
+                                        <span class="checkbox"></span>
+                                        <span class="task-text">Design database schema</span>
+                                    </li>
+                                    <li class="task-item completed">
+                                        <span class="checkbox"></span>
+                                        <span class="task-text">Implement JWT Authentication</span>
+                                    </li>
+                                    <li class="task-item active">
+                                        <span class="checkbox"></span>
+                                        <span class="task-text">Build real-time notification socket.io</span>
+                                    </li>
+                                    <li class="task-item">
+                                        <span class="checkbox"></span>
+                                        <span class="task-text">Integrate Stripe payment gateways</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Mentor Feedback Card -->
+                            <div class="dash-sub-card">
+                                <h4 class="card-title">Mentor Review Feedback</h4>
+                                <div class="mentor-feedback-box">
+                                    <div class="mentor-header">
+                                        <div class="mentor-avatar">M</div>
+                                        <div class="mentor-meta">
+                                            <span class="mentor-name">Marcus Aurelius</span>
+                                            <span class="mentor-time">2 hours ago</span>
+                                        </div>
+                                    </div>
+                                    <p class="mentor-comment">
+                                        "Excellent query optimization on your dashboard API router. I noticed a small memory leak in the socket connection handler on line 12. Check out how you clean up resources on event listener unmounts. Good job!"
+                                    </p>
+                                    <span class="badge score-badge">Score: 9.2/10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Developer Journey Section -->
+        <section class="journey-section" id="journey">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">THE BLUEPRINT</span>
+                    <h2 class="section-title">Your Journey Starts Here</h2>
+                    <p class="section-subtitle">
+                        An interactive progression path showing how you evolve from a syntax compiler to a production software engineer. Click on each milestone for detail modules.
+                    </p>
+                </div>
+
+                <div class="journey-wrapper">
+                    <!-- Progress Line background -->
+                    <div class="journey-progress-line" id="roadmapLine">
+                        <div class="journey-progress-line-fill" id="roadmapLineFill"></div>
+                    </div>
+
+                    <!-- Milestones -->
+                    <div class="journey-nodes">
+                        <!-- Node 1 -->
+                        <div class="journey-node-row left reveal" data-node="0">
+                            <div class="node-content hoverable card-tilt">
+                                <div class="node-icon-wrapper">01</div>
+                                <h3 class="node-title">Learn Core Systems</h3>
+                                <p class="node-short">Deep dive into language runtimes, memory, data structures, algorithms, and computational architectures.</p>
+                                <span class="click-hint">Click to expand details</span>
+                            </div>
+                            <div class="node-dot" id="nodeDot0"></div>
+                            <div class="node-empty"></div>
+                        </div>
+
+                        <!-- Node 2 -->
+                        <div class="journey-node-row right reveal" data-node="1">
+                            <div class="node-empty"></div>
+                            <div class="node-dot" id="nodeDot1"></div>
+                            <div class="node-content hoverable card-tilt">
+                                <div class="node-icon-wrapper">02</div>
+                                <h3 class="node-title">Simulate Real Practice</h3>
+                                <p class="node-short">Master Git pipelines, write unit/integration tests, setup linting, and work concurrently inside collaborative codebases.</p>
+                                <span class="click-hint">Click to expand details</span>
+                            </div>
+                        </div>
+
+                        <!-- Node 3 -->
+                        <div class="journey-node-row left reveal" data-node="2">
+                            <div class="node-content hoverable card-tilt">
+                                <div class="node-icon-wrapper">03</div>
+                                <h3 class="node-title">Build Real Products</h3>
+                                <p class="node-short">Architect backend architectures, design schemas, configure CDNs, and compose beautiful, accessible frontend interfaces.</p>
+                                <span class="click-hint">Click to expand details</span>
+                            </div>
+                            <div class="node-dot" id="nodeDot2"></div>
+                            <div class="node-empty"></div>
+                        </div>
+
+                        <!-- Node 4 -->
+                        <div class="journey-node-row right reveal" data-node="3">
+                            <div class="node-empty"></div>
+                            <div class="node-dot" id="nodeDot3"></div>
+                            <div class="node-content hoverable card-tilt">
+                                <div class="node-icon-wrapper">04</div>
+                                <h3 class="node-title">Receive Rigorous Code Reviews</h3>
+                                <p class="node-short">Go through code refactoring, performance testing, security scans, and readability analysis on your submissions.</p>
+                                <span class="click-hint">Click to expand details</span>
+                            </div>
+                        </div>
+
+                        <!-- Node 5 -->
+                        <div class="journey-node-row left reveal" data-node="4">
+                            <div class="node-content hoverable card-tilt">
+                                <div class="node-icon-wrapper">05</div>
+                                <h3 class="node-title">Deploy & Scale Systems</h3>
+                                <p class="node-short">Manage cloud deployments, setup Docker containers, optimize serverless queries, and configure server monitors.</p>
+                                <span class="click-hint">Click to expand details</span>
+                            </div>
+                            <div class="node-dot" id="nodeDot4"></div>
+                            <div class="node-empty"></div>
+                        </div>
+
+                        <!-- Node 6 -->
+                        <div class="journey-node-row right reveal" data-node="5">
+                            <div class="node-empty"></div>
+                            <div class="node-dot" id="nodeDot5"></div>
+                            <div class="node-content hoverable card-tilt">
+                                <div class="node-icon-wrapper">06</div>
+                                <h3 class="node-title">Launch Your Career</h3>
+                                <p class="node-short">Polishing portfolios, mock behavioral/technical interviews, negotiating compensation, and job placements at high-tier startups.</p>
+                                <span class="click-hint">Click to expand details</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail overlay drawer on milestone clicks -->
+            <div class="roadmap-detail-overlay" id="roadmapDetailOverlay">
+                <div class="roadmap-detail-card card-tilt">
+                    <button class="detail-close-btn" id="roadmapDetailClose">&times;</button>
+                    <div id="roadmapDetailContent">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs Section -->
+        <section class="programs-section" id="programs">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">ENGINEERING TRACKS</span>
+                    <h2 class="section-title">Choose Your Specialization</h2>
+                    <p class="section-subtitle">
+                        Tracks formatted as developer terminal windows. Interactive command layouts displaying stack details.
+                    </p>
+                </div>
+
+                <div class="programs-grid reveal">
+                    <!-- Track 1: Frontend Engineering -->
+                    <div class="program-terminal-card card-tilt">
+                        <div class="terminal-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="title">frontend_engineering.sh</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-prompt">&gt; nexa --inspect track</div>
+                            <div class="terminal-response">
+                                <h3 class="track-name">Frontend Architecture</h3>
+                                <p class="track-desc">Build premium interfaces that mimic Stripe, Framer, and Apple. Master pixel-perfection, animation orchestration, and rendering state.</p>
+                            </div>
+                            <div class="terminal-prompt">&gt; nexa --get stack</div>
+                            <div class="terminal-response stack-techs">
+                                <span>HTML5 / CSS3</span>
+                                <span>JavaScript (ESNext)</span>
+                                <span>React.js</span>
+                                <span>Next.js (App Router)</span>
+                                <span>TailwindCSS / SASS</span>
+                                <span>Framer Motion</span>
+                                <span>TypeScript</span>
+                            </div>
+                            <div class="terminal-prompt">&gt; nexa --get meta</div>
+                            <div class="terminal-meta-list">
+                                <p><strong>Difficulty:</strong> Advanced Intermediate</p>
+                                <p><strong>Duration:</strong> 12 Weeks (Full-time)</p>
+                                <p><strong>Capstone Project:</strong> High-Fidelity UI Engine Builder</p>
+                                <p><strong>Placement:</strong> Frontend Engineer, UI Architect</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track 2: Backend Engineering -->
+                    <div class="program-terminal-card card-tilt">
+                        <div class="terminal-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="title">backend_systems.sh</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-prompt">&gt; nexa --inspect track</div>
+                            <div class="terminal-response">
+                                <h3 class="track-name">Backend Systems & Infrastructure</h3>
+                                <p class="track-desc">Architect scalable backend solutions. Tackle rate limiting, concurrent requests, load balancers, database scaling, and event architectures.</p>
+                            </div>
+                            <div class="terminal-prompt">&gt; nexa --get stack</div>
+                            <div class="terminal-response stack-techs">
+                                <span>Node.js / Express</span>
+                                <span>PostgreSQL / Prisma</span>
+                                <span>Redis (Caching & PubSub)</span>
+                                <span>Docker / Containerization</span>
+                                <span>GraphQL / REST APIs</span>
+                                <span>AWS Lambda / S3</span>
+                                <span>System Architecture</span>
+                            </div>
+                            <div class="terminal-prompt">&gt; nexa --get meta</div>
+                            <div class="terminal-meta-list">
+                                <p><strong>Difficulty:</strong> Advanced</p>
+                                <p><strong>Duration:</strong> 14 Weeks (Full-time)</p>
+                                <p><strong>Capstone Project:</strong> Real-time Financial Ledger Api Service</p>
+                                <p><strong>Placement:</strong> Backend Engineer, Infrastructure Specialist</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track 3: Fullstack Engineering -->
+                    <div class="program-terminal-card card-tilt">
+                        <div class="terminal-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="title">fullstack_applications.sh</span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-prompt">&gt; nexa --inspect track</div>
+                            <div class="terminal-response">
+                                <h3 class="track-name">Fullstack Product Engineering</h3>
+                                <p class="track-desc">Become a zero-to-one developer. Build fully operational end-to-end applications, dashboards, subscription models, and authentication systems.</p>
+                            </div>
+                            <div class="terminal-prompt">&gt; nexa --get stack</div>
+                            <div class="terminal-response stack-techs">
+                                <span>Next.js (Fullstack)</span>
+                                <span>TypeScript</span>
+                                <span>PostgreSQL & Redis</span>
+                                <span>Websockets (Socket.io)</span>
+                                <span>Stripe Billing Engine</span>
+                                <span>TailwindCSS</span>
+                                <span>CI / CD Github Actions</span>
+                            </div>
+                            <div class="terminal-prompt">&gt; nexa --get meta</div>
+                            <div class="terminal-meta-list">
+                                <p><strong>Difficulty:</strong> Elite / Intensive</p>
+                                <p><strong>Duration:</strong> 16 Weeks (Full-time)</p>
+                                <p><strong>Capstone Project:</strong> Collaborative Realtime SaaS Platform</p>
+                                <p><strong>Placement:</strong> Fullstack Engineer, Founding Engineer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Experience Workflow (Horizontal Scroll Cards) -->
+        <section class="experience-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">METHODOLOGY</span>
+                    <h2 class="section-title">The Learning Engine</h2>
+                    <p class="section-subtitle">
+                        An elite developer-forming pipeline. Scroll horizontally through our 8-step iterative growth method.
+                    </p>
+                </div>
+
+                <div class="experience-scroller-outer reveal">
+                    <div class="experience-scroller-inner">
+                        <!-- Card 1 -->
+                        <div class="experience-card card-tilt">
+                            <div class="exp-number">01</div>
+                            <h3>Learn Concepts</h3>
+                            <p>Understand standard architecture patterns, algorithms, and design choices. Zero theoretical bloat.</p>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="experience-card card-tilt">
+                            <div class="exp-number">02</div>
+                            <h3>Live Coding</h3>
+                            <p>Tackle actual code reviews and live-build models alongside seasoned software architects.</p>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="experience-card card-tilt">
+                            <div class="exp-number">03</div>
+                            <h3>Practice Together</h3>
+                            <p>Participate in peer programming sessions, solving system design scenarios and pipeline errors.</p>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="experience-card card-tilt">
+                            <div class="exp-number">04</div>
+                            <h3>Build Independently</h3>
+                            <p>Build enterprise-grade platforms from wireframes and detailed system specifications.</p>
+                        </div>
+                        <!-- Card 5 -->
+                        <div class="experience-card card-tilt">
+                            <div class="exp-number">05</div>
+                            <h3>Present Solutions</h3>
+                            <p>Demonstrate your build logic to peers, explaining architectural patterns and optimizations.</p>
+                        </div>
+                        <!-- Card 6 -->
+                        <div class="experience-card card-tilt">
+                            <div class="exp-number">06</div>
+                            <h3>Rigorous Code Review</h3>
+                            <p>Senior devs review line-by-line, pointing out performance gaps, styling leaks, and naming errors.</p>
+                        </div>
+                        <!-- Card 7 -->
+                        <div class="experience-card card-tilt">
+                            <div class="exp-number">07</div>
+                            <h3>Refactor & Optimize</h3>
+                            <p>Implement the feedback, reduce time complexity, scale rendering performance, and secure configurations.</p>
+                        </div>
+                        <!-- Card 8 -->
+                        <div class="experience-card card-tilt">
+                            <div class="exp-number">08</div>
+                            <h3>Real Industry Placement</h3>
+                            <p>Graduate into direct client projects, hackathons, and high-impact developer placements.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Showcase Section -->
+        <section class="projects-section" id="projects">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">PROOF OF COMPETENCY</span>
+                    <h2 class="section-title">Built by Nexa Students</h2>
+                    <p class="section-subtitle">
+                        Inspect capstones created by cadets. Not simple todo apps, but complex production-level products.
+                    </p>
+                </div>
+
+                <div class="projects-grid reveal">
+                    <!-- Project 1 -->
+                    <div class="project-card card-tilt">
+                        <div class="project-media">
+                            <div class="project-media-gradient"></div>
+                            <div class="project-graphic">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5">
+                                    <path d="M3 3v18h18"></path>
+                                    <path d="M18.7 8l-5.1 5.2-2.8-2.7-7 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-tags">
+                                <span class="p-tag">React</span>
+                                <span class="p-tag">TypeScript</span>
+                                <span class="p-tag">Tailwind</span>
+                            </div>
+                            <h3>Aura Analytics</h3>
+                            <p>Real-time analytics engine processing up to 10k events/sec. Features low-latency SVG charting, serverless database syncing, and a customizable widgets system.</p>
+                            <div class="project-meta">
+                                <span>Difficulty: Advanced</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="btn btn-sm btn-secondary hoverable">Live Demo</a>
+                                <a href="#" class="btn btn-sm btn-secondary hoverable">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card card-tilt">
+                        <div class="project-media">
+                            <div class="project-media-gradient-purple"></div>
+                            <div class="project-graphic">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    <path d="M2 12h20"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-tags">
+                                <span class="p-tag">Node.js</span>
+                                <span class="p-tag">WebSockets</span>
+                                <span class="p-tag">Prisma</span>
+                            </div>
+                            <h3>Syncspace CMS</h3>
+                            <p>Collaborative writing platform utilizing OT (Operational Transformation) algorithm for concurrent cursor syncing. Integrated server caching layer reduces page load to 12ms.</p>
+                            <div class="project-meta">
+                                <span>Difficulty: Advanced</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="btn btn-sm btn-secondary hoverable">Live Demo</a>
+                                <a href="#" class="btn btn-sm btn-secondary hoverable">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card card-tilt">
+                        <div class="project-media">
+                            <div class="project-media-gradient-cyan"></div>
+                            <div class="project-graphic">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="1.5">
+                                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                                    <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                                    <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-tags">
+                                <span class="p-tag">Next.js</span>
+                                <span class="p-tag">Stripe</span>
+                                <span class="p-tag">GraphQL</span>
+                            </div>
+                            <h3>Novapay API</h3>
+                            <p>A developer billing orchestration API allowing automated multi-tier subscriptions. Setup customizable webhooks, usage metrics, and immediate invoice generation.</p>
+                            <div class="project-meta">
+                                <span>Difficulty: Elite</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="btn btn-sm btn-secondary hoverable">Live Demo</a>
+                                <a href="#" class="btn btn-sm btn-secondary hoverable">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Review Experience (Split Screen) -->
+        <section class="reviews-section" id="reviews">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">QUALITY DRIVEN</span>
+                    <h2 class="section-title">The Code Review Standard</h2>
+                    <p class="section-subtitle">
+                        Every single line of code you write will be reviewed. Drag the slider or click tabs to explore code optimizations in real-time.
+                    </p>
+                </div>
+
+                <!-- Code Review Widget -->
+                <div class="code-review-widget reveal">
+                    <div class="code-review-controls">
+                        <button class="cr-tab active hoverable" data-challenge="naming">Variable Naming & Cleanness</button>
+                        <button class="cr-tab hoverable" data-challenge="performance">Performance & Loop Optimization</button>
+                        <button class="cr-tab hoverable" data-challenge="async">Asynchronous Execution</button>
+                    </div>
+
+                    <div class="code-split-screen">
+                        <!-- Student Code Panel -->
+                        <div class="code-panel original">
+                            <div class="panel-header">STUDENT ORIGINAL VERSION</div>
+                            <pre><code class="language-js" id="originalCodeContainer"></code></pre>
+                        </div>
+
+                        <!-- Reviewed Code Panel -->
+                        <div class="code-panel reviewed">
+                            <div class="panel-header">NEXA MENTOR OPTIMIZED VERSION</div>
+                            <pre><code class="language-js" id="optimizedCodeContainer"></code></pre>
+                        </div>
+                    </div>
+
+                    <div class="reviewer-feedback-box">
+                        <div class="avatar">R</div>
+                        <div class="feedback-text">
+                            <strong>Reviewer Note:</strong> <span id="reviewerFeedbackText">Initializing review insights...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section class="community-section" id="community">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">THE NETWORK</span>
+                    <h2 class="section-title">A Constellation of Builders</h2>
+                    <p class="section-subtitle">
+                        You learn alongside engineers from Google, Amazon, Vercel, Stripe, and modern startups. See the network mapping.
+                    </p>
+                </div>
+
+                <div class="community-map-wrapper reveal">
+                    <canvas id="communityMapCanvas"></canvas>
+                    <div class="community-overlay-card" id="networkCard">
+                        <div class="network-avatar">SK</div>
+                        <h4 class="network-name">Sasha K.</h4>
+                        <p class="network-track">Fullstack Mentor (Ex-Stripe Architect)</p>
+                        <div class="network-stats">
+                            <span>14 Reviews today</span>
+                            <span>Active status</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admission Process Visualization -->
+        <section class="admission-flow-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">PIPELINE</span>
+                    <h2 class="section-title">The Admission Process</h2>
+                    <p class="section-subtitle">
+                        Straightforward stages from registration submission to first graduation launch.
+                    </p>
+                </div>
+
+                <div class="admission-grid reveal">
+                    <div class="flow-card">
+                        <div class="flow-step-num">01</div>
+                        <h3>Online Registration</h3>
+                        <p>Submit your resume, background background, and programming goals via our multi-step form below.</p>
+                    </div>
+                    <div class="flow-card">
+                        <div class="flow-step-num">02</div>
+                        <h3>Technical Assessment</h3>
+                        <p>Complete a short take-home sandbox challenge to confirm baseline programming competency.</p>
+                    </div>
+                    <div class="flow-card">
+                        <div class="flow-step-num">03</div>
+                        <h3>Admissions Interview</h3>
+                        <p>Conduct a live video interview to align expectations, schedules, and cohort focus.</p>
+                    </div>
+                    <div class="flow-card">
+                        <div class="flow-step-num">04</div>
+                        <h3>Onboarding Boot</h3>
+                        <p>Unlock setup scripts, initialize developer profiles, and meet your cohort peers.</p>
+                    </div>
+                    <div class="flow-card">
+                        <div class="flow-step-num">05</div>
+                        <h3>Intensive Cohort</h3>
+                        <p>Build 6 major products, write hundreds of pull requests, and receive 1-on-1 code critiques.</p>
+                    </div>
+                    <div class="flow-card">
+                        <div class="flow-step-num">06</div>
+                        <h3>Graduation Launch</h3>
+                        <p>Finalize resume packages, complete mock interviews, and access placement network pipelines.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Founders Section -->
+        <section class="founders-section" id="founders">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">VISIONARIES</span>
+                    <h2 class="section-title">Founder & CEO</h2>
+                    <p class="section-subtitle">
+                        Architecting the future of STEM and software engineering education.
+                    </p>
+                </div>
+
+                <div class="founders-single reveal" style="max-width: 650px; margin: 0 auto 60px auto;">
+                    <div class="founder-card card-tilt">
+                        <div class="founder-image-wrapper" style="border: 2px solid var(--accent-cyan); box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);">
+                            <img src="assets/mohamed_emad.jpg" alt="Mohamed Emad" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="founder-info">
+                            <h3>Mohamed Emad</h3>
+                            <span class="founder-role">Founder & CEO</span>
+                            <p>Egyptian STEM high school student who has a long passion about technology fields. Having created many STEM projects and participated in global competitions, Mohamed decided to share his experience and help developers scale their careers through NexaCode Hub.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="founder-quote-box reveal">
+                    <p class="quote-text">
+                        "I built the academy I wish existed when I started."
+                    </p>
+                    <span class="quote-author">— Mohamed Emad</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story Section (Scroll-driven chapter fade-in) -->
+        <section class="story-section" id="story">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">HISTORY</span>
+                    <h2 class="section-title">The Story of NexaCode</h2>
+                    <p class="section-subtitle">
+                        How we went from writing scripts on personal laptops to forming hundreds of engineers worldwide.
+                    </p>
+                </div>
+
+                <div class="story-timeline">
+                    <!-- Chapter 1 -->
+                    <div class="story-chapter reveal">
+                        <div class="chapter-num">01</div>
+                        <div class="chapter-content">
+                            <h3>The Struggle</h3>
+                            <p>When starting out, we spent months watching video tutorials. We memorized syntax commands, but we couldn't build a single application from scratch. The tutorial hell was real, and it was draining.</p>
+                        </div>
+                    </div>
+                    <!-- Chapter 2 -->
+                    <div class="story-chapter reveal">
+                        <div class="chapter-num">02</div>
+                        <div class="chapter-content">
+                            <h3>The Learning Journey</h3>
+                            <p>Real breakthroughs occurred when we got jobs inside companies. Junior developers learned through pull request reviews. The line-by-line feedback from team leads accelerated our growth 10x faster than any class.</p>
+                        </div>
+                    </div>
+                    <!-- Chapter 3 -->
+                    <div class="story-chapter reveal">
+                        <div class="chapter-num">03</div>
+                        <div class="chapter-content">
+                            <h3>The Missing Gap</h3>
+                            <p>Most code academies teach syntax rules, then dump students in the job market with copy-pasted portfolio templates. There was a massive gap between academic coding and production-level system design.</p>
+                        </div>
+                    </div>
+                    <!-- Chapter 4 -->
+                    <div class="story-chapter reveal">
+                        <div class="chapter-num">04</div>
+                        <div class="chapter-content">
+                            <h3>The Vision</h3>
+                            <p>We wanted to package the big tech engineering workspace structure into an elite programming academy. A space where students are treated like professional software engineers from day one.</p>
+                        </div>
+                    </div>
+                    <!-- Chapter 5 -->
+                    <div class="story-chapter reveal">
+                        <div class="chapter-num">05</div>
+                        <div class="chapter-content">
+                            <h3>The Creation of NexaCode</h3>
+                            <p>We launched our first cohort in 2023. Today, NexaCode graduates work at Vercel, Linear, Apple, Stripe, and build core tech stacks at top-tier VC-backed startups.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Journey Transformations Section -->
+        <section class="success-stories-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">TRANSFORMATIONS</span>
+                    <h2 class="section-title">Success Journeys</h2>
+                    <p class="section-subtitle">
+                        See how real graduates transformed their careers through our code review academy.
+                    </p>
+                </div>
+
+                <div class="stories-carousel-wrapper reveal">
+                    <button class="carousel-nav prev hoverable" id="carouselPrev" aria-label="Previous Slide">&larr;</button>
+                    
+                    <div class="stories-track" id="storiesCarousel">
+                        <!-- Story 1 -->
+                        <div class="story-slide active">
+                            <div class="story-inner card-tilt">
+                                <div class="student-profile">
+                                    <div class="student-avatar-glow pink">
+                                        <div class="student-avatar">TC</div>
+                                    </div>
+                                    <div class="student-info">
+                                        <h4>Tyler Chen</h4>
+                                        <span class="track-tag">Frontend Engineering</span>
+                                    </div>
+                                </div>
+                                <div class="transformation-stats">
+                                    <div class="t-stat">
+                                        <span class="label">BEFORE</span>
+                                        <span class="value val-red">Barista / Tutorial Beginner</span>
+                                    </div>
+                                    <div class="t-stat-arrow">&rarr;</div>
+                                    <div class="t-stat">
+                                        <span class="label">AFTER</span>
+                                        <span class="value val-green">UI Engineer at Vercel</span>
+                                    </div>
+                                </div>
+                                <p class="student-quote">
+                                    "I completed three React tutorials but still froze when writing my own projects. NexaCode's strict 1-on-1 reviews completely refactored how I write scripts. I built a custom design editor for my capstone, which directly led to my job placement at Vercel."
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Story 2 -->
+                        <div class="story-slide">
+                            <div class="story-inner card-tilt">
+                                <div class="student-profile">
+                                    <div class="student-avatar-glow blue">
+                                        <div class="student-avatar">KL</div>
+                                    </div>
+                                    <div class="student-info">
+                                        <h4>Krista Laine</h4>
+                                        <span class="track-tag">Backend Systems</span>
+                                    </div>
+                                </div>
+                                <div class="transformation-stats">
+                                    <div class="t-stat">
+                                        <span class="label">BEFORE</span>
+                                        <span class="value val-red">Self-taught / CS Student</span>
+                                    </div>
+                                    <div class="t-stat-arrow">&rarr;</div>
+                                    <div class="t-stat">
+                                        <span class="label">AFTER</span>
+                                        <span class="value val-green">Backend Dev at Linear</span>
+                                    </div>
+                                </div>
+                                <p class="student-quote">
+                                    "My university taught me how computer memory functions, but never how database index pooling, caching protocols, or real CI/CD delivery pipelines operate in production. Elena pushed my systems to failure limits until I solved optimization gaps."
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Story 3 -->
+                        <div class="story-slide">
+                            <div class="story-inner card-tilt">
+                                <div class="student-profile">
+                                    <div class="student-avatar-glow cyan">
+                                        <div class="student-avatar">MJ</div>
+                                    </div>
+                                    <div class="student-info">
+                                        <h4>Mateo Jenkins</h4>
+                                        <span class="track-tag">Fullstack Product</span>
+                                    </div>
+                                </div>
+                                <div class="transformation-stats">
+                                    <div class="t-stat">
+                                        <span class="label">BEFORE</span>
+                                        <span class="value val-red">Support Agent (HubSpot)</span>
+                                    </div>
+                                    <div class="t-stat-arrow">&rarr;</div>
+                                    <div class="t-stat">
+                                        <span class="label">AFTER</span>
+                                        <span class="value val-green">Founding Dev at Aura AI</span>
+                                    </div>
+                                </div>
+                                <p class="student-quote">
+                                    "Starting from customer support, the steep learning curve was intimidating. The community of peers and structured roadmap lessons at Nexa kept me on track. I built an end-to-end billing tool that helped me secure a founding developer position."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="carousel-nav next hoverable" id="carouselNext" aria-label="Next Slide">&rarr;</button>
+                </div>
+                
+                <div class="carousel-dots-indicator" id="carouselDots">
+                    <!-- Dots populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Application Form Section (Multi-Step Form Wizard) -->
+        <section class="apply-section" id="apply">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">APPLY</span>
+                    <h2 class="section-title">Begin Your Application</h2>
+                    <p class="section-subtitle">
+                        Complete our streamlined registration sequence to secure your spot for the upcoming cohort.
+                    </p>
+                </div>
+
+                <div class="form-wizard-card card-tilt reveal">
+                    <!-- Progress Tracker -->
+                    <div class="wizard-header">
+                        <div class="wizard-progress-bar">
+                            <div class="wizard-progress-fill" id="formProgress"></div>
+                        </div>
+                        <div class="wizard-steps-indicator">
+                            <span class="step-lbl active" data-step="1">1. Info</span>
+                            <span class="step-lbl" data-step="2">2. Coding</span>
+                            <span class="step-lbl" data-step="3">3. Goals</span>
+                            <span class="step-lbl" data-step="4">4. Schedule</span>
+                            <span class="step-lbl" data-step="5">5. Motivation</span>
+                            <span class="step-lbl" data-step="6">6. Review</span>
+                        </div>
+                    </div>
+
+                    <form id="applicationForm" novalidate>
+                        <!-- Step 1: Personal Info -->
+                        <div class="wizard-step active" data-step="1">
+                            <h3>Tell us about yourself</h3>
+                            <p class="step-desc">Provide your basic contact coordinates so our admissions team can reach out.</p>
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" placeholder="e.g. Sarah Connor" required>
+                                <span class="error-msg">Name is required</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="emailAddr">Email Address</label>
+                                <input type="email" id="emailAddr" placeholder="e.g. sarah@cyberdyne.io" required>
+                                <span class="error-msg">Enter a valid email address</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="githubUrl">GitHub Username (Optional)</label>
+                                <input type="text" id="githubUrl" placeholder="e.g. connor_codes">
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Background -->
+                        <div class="wizard-step" data-step="2">
+                            <h3>Programming Background</h3>
+                            <p class="step-desc">We accept developers of all levels, but this helps us customize your pathway structure.</p>
+                            <div class="form-group">
+                                <label>What is your current coding level?</label>
+                                <select id="codingLevel" required>
+                                    <option value="" disabled selected>Select level...</option>
+                                    <option value="beginner">Total Beginner (Learning basic syntax)</option>
+                                    <option value="intermediate">Intermediate (Built simple script widgets)</option>
+                                    <option value="advanced">Advanced (Understand APIs, database indexes, state managers)</option>
+                                </select>
+                                <span class="error-msg">Coding level is required</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="languagesKnown">Familiar Languages/Frameworks (Comma separated)</label>
+                                <input type="text" id="languagesKnown" placeholder="e.g. HTML, JS, Python">
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Goals -->
+                        <div class="wizard-step" data-step="3">
+                            <h3>Select Your Track & Career Goals</h3>
+                            <p class="step-desc">Which discipline do you plan on mastering inside the academy?</p>
+                            <div class="form-group">
+                                <label>Target Engineering Track</label>
+                                <select id="targetTrack" required>
+                                    <option value="" disabled selected>Select track...</option>
+                                    <option value="frontend">Frontend Engineering (12 weeks)</option>
+                                    <option value="backend">Backend Engineering (14 weeks)</option>
+                                    <option value="fullstack">Fullstack Product Engineering (16 weeks)</option>
+                                </select>
+                                <span class="error-msg">Please select a target track</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="careerTarget">What is your primary career goal?</label>
+                                <input type="text" id="careerTarget" placeholder="e.g. Get a frontend role, launch a SaaS startup" required>
+                                <span class="error-msg">Goal statement is required</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Schedule -->
+                        <div class="wizard-step" data-step="4">
+                            <h3>Available Schedule</h3>
+                            <p class="step-desc">Confirm your operational capacity to complete coursework and code review cycles.</p>
+                            <div class="form-group">
+                                <label>Commitment Preference</label>
+                                <select id="commitmentType" required>
+                                    <option value="" disabled selected>Select schedule...</option>
+                                    <option value="fulltime">Full-time (40+ hours/week, live sessions)</option>
+                                    <option value="parttime">Part-time (20+ hours/week, self-paced + reviews)</option>
+                                </select>
+                                <span class="error-msg">Please select a commitment model</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Motivation -->
+                        <div class="wizard-step" data-step="5">
+                            <h3>Your Motivation</h3>
+                            <p class="step-desc">We filter applications heavily based on drive. Explain why you want to join NexaCode.</p>
+                            <div class="form-group">
+                                <label for="motivationText">Why do you want to learn with NexaCode Hub?</label>
+                                <textarea id="motivationText" placeholder="Write a short paragraph about your motivation, problems you want to solve, and your background..." required></textarea>
+                                <span class="error-msg">Motivation statement is required</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 6: Review & Submit -->
+                        <div class="wizard-step" data-step="6">
+                            <h3>Review Your Information</h3>
+                            <p class="step-desc">Verify your credentials. Click "Confirm Submission" to transmit.</p>
+                            <div class="review-details-box" id="reviewBox">
+                                <!-- Populated dynamically by script -->
+                            </div>
+                        </div>
+
+                        <!-- Wizard Footer Navigation -->
+                        <div class="wizard-footer">
+                            <button type="button" class="btn btn-secondary hoverable" id="prevStepBtn" style="display: none;">Back</button>
+                            <button type="button" class="btn btn-primary hoverable" id="nextStepBtn">Continue</button>
+                            <button type="submit" class="btn btn-primary hoverable" id="submitFormBtn" style="display: none;">Confirm Submission</button>
+                        </div>
+                    </form>
+
+                    <!-- Success Animation Wrapper -->
+                    <div class="form-success-overlay" id="formSuccessOverlay">
+                        <div class="success-content">
+                            <div class="success-icon-glow">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <h2>Application Successfully Transmitted</h2>
+                            <p>Your developer profile and credentials have been indexed in our database. Our admissions committee will contact you within 24 hours.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Accordion Section -->
+        <section class="faq-section" id="faq">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">ANSWERS</span>
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle">
+                        Clear responses to common questions about the NexaCode methodology and tuition formats.
+                    </p>
+                </div>
+
+                <div class="faq-accordion-wrapper reveal">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item">
+                        <button class="faq-question hoverable">
+                            <span>How are the programs structured?</span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We work in weekly sprints. Every Monday you receive your codebase assignments and technical parameters. You write features, push pull requests, and receive written review audits. Throughout the week, you can request 1-on-1 calls with your mentor to clear logic blocks.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item">
+                        <button class="faq-question hoverable">
+                            <span>I am a complete beginner. Can I apply?</span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes. While our programs dive into advanced concepts, we have introductory pathways designed to build baseline logical structures. If you show dedication and solve our entry sandbox challenge, you are welcome to apply.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="faq-item">
+                        <button class="faq-question hoverable">
+                            <span>How long do the reviews take?</span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Reviews are completed daily. If you submit a pull request by 8:00 PM, a senior engineer will review, comment, and assign optimization refactors to your code by 9:00 AM the next morning.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="faq-item">
+                        <button class="faq-question hoverable">
+                            <span>Do you provide career placement support?</span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes. Our career team works directly with you for portfolio design, resume parsing optimizations, interview simulations, salary negotiation guidance, and direct placements to our recruiter partner networks.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="faq-item">
+                        <button class="faq-question hoverable">
+                            <span>What is the tuition cost and are there scholarships?</span>
+                            <span class="faq-icon">&plus;</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Tuition varies by track duration. We offer monthly installment plans, income-share options, and merit-based partial scholarships for students who perform exceptionally well on our sandbox coding challenges.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-divider-glow"></div>
+        <div class="container footer-container">
+            <div class="footer-left">
+                <a href="#" class="footer-logo">
+                    <span class="logo-accent">&lt;</span>NexaCode Hub<span class="logo-accent"> /&gt;</span>
+                </a>
+                <p class="footer-tagline">Building the elite engineering workforce of tomorrow, today.</p>
+                <div class="social-row">
+                    <a href="https://github.com/nexacodehub" class="social-link hoverable" aria-label="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    </a>
+                    <a href="https://twitter.com/nexacodehub" class="social-link hoverable" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <h4>Programs</h4>
+                    <a href="#programs" class="hoverable">Frontend Architecture</a>
+                    <a href="#programs" class="hoverable">Backend Systems</a>
+                    <a href="#programs" class="hoverable">Fullstack Product</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Academy</h4>
+                    <a href="#journey" class="hoverable">Milestones</a>
+                    <a href="#dashboard" class="hoverable">Dashboard Preview</a>
+                    <a href="#story" class="hoverable">Our Story</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Community</h4>
+                    <a href="#community" class="hoverable">Developer Constellation</a>
+                    <a href="#founders" class="hoverable">Founders</a>
+                    <a href="https://discord.gg/nexacodehub" class="hoverable">Join Discord</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NexaCode Hub. All systems operational. Built for elite software engineers.</p>
+        </div>
+    </footer>
+
+    <!-- Sticky Bottom Live Terminal Dock -->
+    <div class="terminal-dock" id="terminalDock">
+        <div class="dock-header" id="dockHeader">
+            <div class="header-left">
+                <span class="pulse-indicator"></span>
+                <span>NEXA LIVE SHELL</span>
+            </div>
+            <div class="header-right">
+                <button class="dock-toggle-btn hoverable" id="dockToggleBtn" aria-label="Minimize Shell">_</button>
+            </div>
+        </div>
+        <div class="dock-body" id="dockBody">
+            <div class="dock-lines" id="dockLines">
+                <div class="dock-line">Welcome to NexaCode Interactive Shell. Type <span class="highlight">help</span> to list commands.</div>
+            </div>
+            <div class="dock-input-row">
+                <span class="dock-prompt">nexa$</span>
+                <input type="text" id="dockInput" autocomplete="off" spellcheck="false" aria-label="Terminal Command Input">
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
